@@ -4,7 +4,7 @@
     --header-height: 3rem;
     --nav-width: 22vw;
     --nav-height: 89vh;
-    --first-color: #4723D9;
+    --first-color: #46348d;
     --white-color: #F7F6FB;
     --body-font: 'Nunito', sans-serif;
     --normal-font-size: 1rem;
@@ -17,17 +17,14 @@
     box-sizing: border-box
 }
 
-body {
-    line-height: 0 !important;
-}
-
 a {
     text-decoration: none
 }
 
 .l-navbar {
+    line-height: 0 !important;
     border-right: 2px solid rgb(53, 27, 77);
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: -30%;
     width: 22%;
@@ -147,6 +144,10 @@ a {
     height: var(--nav-height);
 }
 
+#admin_dashboard {
+    line-height: 0 !important;
+}
+
 #stat-buttons {
     width: calc(100vw - 1vw - var(--nav-width));
     text-align: center;
@@ -223,13 +224,63 @@ a {
     box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
 }
 
-#calendar_logo{
+#calendar_logo {
     display: flex;
     text-align: center;
     justify-content: center;
     align-items: center;
 }
 
-.big_logo img{
+.big_logo img {
     width: 50%;
+}
+
+#admin_faculties {
+    text-align: center;
+}
+
+#admin_faculties img {
+    width: 50%;
+}
+
+#admin_courses {
+    width: 78%;
+    text-align: center;
+    font-family: "Google Sans", Roboto, Arial, sans-serif;
+    font-size: 120%;
+    font-weight: 500;
+    padding: 1%;
+}
+
+#degree_details {
+    width: 100%;
+}
+
+#degree_details_t {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+    margin: auto;
+}
+
+#degree_details_t td,
+#degree_details_t th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#degree_details_t tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#degree_details_t tr:hover {
+    background-color: #ddd;
+}
+
+#degree_details_t th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #372a49;
+    color: white;
 }

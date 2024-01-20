@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 body{
+	padding-top: 10vh;
 	font-family: 'Roboto', sans-serif;
 }
 
@@ -10,13 +11,15 @@ body{
 }
 
 #navbar-animmenu {
+	position: fixed;
+	top: 0;
+	left: 0;
 	background: rgb(255, 255, 255);
-	float: left;
 	overflow: hidden;
-	position: relative;
 	padding: 10px 0px;
     width: 100%;
     box-shadow: 0px 2px 2px #cfcfd4;
+	z-index: 999;
 }
 
 #navbar-animmenu ul{
