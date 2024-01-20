@@ -163,9 +163,10 @@ a {
     color: #301a53;
     cursor: pointer;
     display: inline-flex;
+    flex-direction: column;
     fill: currentcolor;
     font-family: "Google Sans", Roboto, Arial, sans-serif;
-    font-size: 14px;
+    font-size: 150%;
     font-weight: 500;
     height: 12vh;
     justify-content: center;
@@ -199,7 +200,7 @@ a {
 
 .button-17:focus {
     outline: none;
-    border: 2px solid #4285f4;
+    border: 2px solid #3f2372;
 }
 
 .button-17:not(:disabled) {
