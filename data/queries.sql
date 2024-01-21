@@ -171,3 +171,98 @@ INSERT INTO student_to_module (student_id, module_code, faculty, degree) VALUES
 ('ST890123', 'M009', 'EE', 'D003'),
 ('ST901234', 'M010', 'ME', 'D004'),
 ('ST012345', 'M001', 'CE', 'D005');
+
+
+DELIMITER //
+
+CREATE PROCEDURE InsertUserAndLecturer(
+    IN p_username VARCHAR(255),
+    IN p_password VARCHAR(255),
+    IN p_first_name VARCHAR(100),
+    IN p_last_name VARCHAR(100),
+    IN p_email VARCHAR(255),
+    IN p_contact_no CHAR(10),
+    IN p_account_type ENUM('admin', 'lecturer', 'student'),
+    IN p_lecturer_id CHAR(10),
+    IN p_faculty CHAR(2)
+)
+BEGIN
+    -- Declare a variable to store the auto-incremented user_id
+    DECLARE user_id INT;
+
+    -- Start a transaction to ensure data consistency
+    START TRANSACTION;
+
+    -- Insert a new user
+    INSERT INTO users (username, password, first_name, last_name, email, contact_no, account_type)
+    VALUES (p_username, p_password, p_first_name, p_last_name, p_email, p_contact_no, p_account_type);
+
+    -- Retrieve the auto-incremented user_id for the new user
+    SELECT LAST_INSERT_ID() INTO user_id;
+
+    -- Check if the account type is lecturer and insert into the lecturer table accordingly
+    IF p_account_type = 'lecturer' THEN
+        -- Insert into the lecturer table
+        INSERT INTO lecturer (user_id, lecturer_id, faculty)
+        VALUES (user_id, p_lecturer_id, p_faculty);
+    END IF;
+
+    -- Commit the transaction
+    COMMIT;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE InsertOrUpdateUserAndStudent(
+    IN p_username VARCHAR(255),
+    IN p_password VARCHAR(255),
+    IN p_first_name VARCHAR(100),
+    IN p_last_name VARCHAR(100),
+    IN p_email VARCHAR(255),
+    IN p_contact_no CHAR(10),
+    IN p_account_type ENUM('admin', 'lecturer', 'student'),
+    IN p_student_id CHAR(10),
+    IN p_faculty CHAR(2),
+    IN p_degree CHAR(5),
+    IN p_batch CHAR(5)
+)
+BEGIN
+    -- Declare a variable to store the auto-incremented user_id
+    DECLARE user_id INT;
+
+    -- Start a transaction to ensure data consistency
+    START TRANSACTION;
+
+    -- Insert or update the user based on the account type
+    IF p_account_type = 'student' THEN
+        -- Check if the student record already exists
+        IF EXISTS (SELECT 1 FROM student WHERE student_id = p_student_id) THEN
+            -- Update existing student record
+            UPDATE student
+            SET
+                faculty = p_faculty,
+                degree = p_degree,
+                batch = p_batch
+            WHERE student_id = p_student_id;
+        ELSE
+            -- Insert new student record
+            INSERT INTO users (username, password, first_name, last_name, email, contact_no, account_type)
+            VALUES (p_username, p_password, p_first_name, p_last_name, p_email, p_contact_no, p_account_type);
+
+            -- Retrieve the auto-incremented user_id for the new user
+            SELECT LAST_INSERT_ID() INTO user_id;
+
+            -- Insert into the student table
+            INSERT INTO student (user_id, student_id, faculty, degree, batch)
+            VALUES (user_id, p_student_id, p_faculty, p_degree, p_batch);
+        END IF;
+    END IF;
+
+    -- Commit the transaction
+    COMMIT;
+END //
+
+DELIMITER ;
+

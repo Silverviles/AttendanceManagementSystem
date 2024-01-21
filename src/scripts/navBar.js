@@ -46,6 +46,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
             // Prevent the default behavior of the anchor tag
             event.preventDefault();
 
+            var dialogs = document.querySelectorAll("dialog");
+
+            dialogs.forEach(function(dialog) {
+                dialog.style.display = "none";
+            });
+
             // Hide all elements with the class 'admin_content'
             var adminContents = document.getElementsByClassName('admin_content');
             for (var i = 0; i < adminContents.length; i++) {
@@ -61,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     break;
                 case "modules_nav": document.getElementById("admin_modules").style.display = "block";
                     break;
-                case "lectures_nav": document.getElementById("admin_lectures").style.display = "block";
+                case "lecturers_nav": document.getElementById("admin_lecturers").style.display = "block";
                     break;
                 case "students_nav": document.getElementById("admin_students").style.display = "block";
                     break;

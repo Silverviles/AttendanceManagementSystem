@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="../styles/courses.css">
 <div class="admin_content" id="admin_courses">
     <div class="flex-container">
         <div>
@@ -13,5 +12,5 @@
 
         <button class="button-65" id="add_course_btn">Add Course</button>
     </div>
-    <div id="degreeDetails"></div>
+    <div class="details_t" id="degreeDetails"></div>
 </div>

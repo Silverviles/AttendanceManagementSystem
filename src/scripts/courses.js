@@ -1,9 +1,8 @@
 function getDegreeDetails() {
-    // Send AJAX request when the DOM is ready
     var xhr = new XMLHttpRequest();
     xhr.open('GET', '../php/get_degrees.php', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
-
+    
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
@@ -16,28 +15,28 @@ function getDegreeDetails() {
     };
 
     xhr.send();
+}
 
-    function displayDegreeDetails(degrees) {
-        // Assuming degrees is an array of objects with degree details
-    
-        var html = '<table border="1" id="degree_details_t"><thead><tr><th>Degree ID</th><th>Degree Name</th><th>Faculty</th></tr></thead><tbody>';
-    
-        degrees.forEach(function (degree) {
-            html += '<tr><td>' + degree.degree_id + '</td><td>' + degree.degree_name + '</td><td>' + degree.faculty + '</td></tr>';
-        });
-    
-        html += '</tbody></table>';
-    
-        // Display the degree details in the #degreeDetails div
-        document.getElementById('degreeDetails').innerHTML = html;
-    }
+function displayDegreeDetails(degrees) {
+    // Assuming degrees is an array of objects with degree details
+
+    var html = '<table border="1" class="details_t" id="degree_details_t"><thead><tr><th>Degree ID</th><th>Degree Name</th><th>Faculty</th></tr></thead><tbody>';
+
+    degrees.forEach(function (degree) {
+        html += '<tr><td>' + degree.degree_id + '</td><td>' + degree.degree_name + '</td><td>' + degree.faculty + '</td></tr>';
+    });
+
+    html += '</tbody></table>';
+
+    // Display the degree details in the #degreeDetails div
+    document.getElementById('degreeDetails').innerHTML = html;
 }
 
 function filterDegrees() {
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("facultyFilter");
     filter = input.value.toUpperCase();
-    table = document.querySelector("table");
+    table = document.getElementById("degree_details_t");
     tr = table.getElementsByTagName("tr");
 
     // Loop through all table rows, and hide those that don't match the filter
@@ -54,13 +53,13 @@ function filterDegrees() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', getDegreeDetails);
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById("add_course_btn").addEventListener('click', function () {
+        document.getElementById("dialog_faculty").style.display = "block";
+    });
 
-document.getElementById("add_course_btn").addEventListener('click', function () {
-    document.getElementById("dialog").style.display = "block";
-});
-
-document.getElementById("add_course_done").addEventListener('click', function () {
-    document.getElementById("dialog").style.display = "none";
-    getDegreeDetails();
+    document.getElementById("add_course_done").addEventListener('click', function () {
+        document.getElementById("dialog_faculty").style.display = "none";
+        getDegreeDetails();
+    });
 });
