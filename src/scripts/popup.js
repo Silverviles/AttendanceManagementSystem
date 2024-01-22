@@ -94,3 +94,5 @@ handleFormSubmission('lecturerForm', '../php/add_lecturer.php', getLecturerDetai
 
 // Handle student form submission
 handleFormSubmission('studentForm', '../php/add_student.php', getStudentDetails);
+
+document.querySelectorAll("dialog").addEventListener("click", )

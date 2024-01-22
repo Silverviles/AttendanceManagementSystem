@@ -1,7 +1,7 @@
 <dialog id="dialog_faculty" class="dialog">
     <div style="display: flex; justify-content: center;">
         <h2>Add New Course</h2>
-        <button style="float: right;">X</button>
+        <button class="close_popup" style="float: right;">X</button>
     </div>
     <form id="courseForm">
         <label for="course_id">Course Code</label><br>
@@ -20,7 +20,7 @@
 <dialog id="dialog_module" class="dialog">
     <div style="display: flex; justify-content: center;">
         <h2>Add New Module</h2>
-        <button style="float: right;">X</button>
+        <button class="close_popup" style="float: right;">X</button>
     </div>
     <form id="moduleForm">
         <label for="module_code">Module Code</label><br>
@@ -45,7 +45,7 @@
 <dialog id="dialog_lecturer" class="dialog">
     <div style="display: flex; justify-content: center;">
         <h2>Add New Lecturer</h2>
-        <button style="float: right;">X</button>
+        <button class="close_popup" style="float: right;">X</button>
     </div>
     <form id="lecturerForm">
         <label for="username">Username:</label>
@@ -79,7 +79,7 @@
 <dialog id="dialog_student" class="dialog">
     <div style="display: flex; justify-content: center;">
         <h2>Add New Student</h2>
-        <button style="float: right;">X</button>
+        <button class="close_popup" style="float: right;">X</button>
     </div>
     <form id="studentForm">
         <label for="username">Username</label><br>
