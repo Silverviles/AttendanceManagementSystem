@@ -18,16 +18,25 @@ function getModuleDetails() {
 }
 
 function displayModuleDetails(modules) {
-    var html = '<table border="1" class="details_t" id="module_details_t"><thead><tr><th>Module Code</th><th>Module Name</th><th>Faculty</th><th>Degree</th></tr></thead><tbody>';
+    var html = '<table border="1" class="details_t" id="module_details_t"><thead><tr><th>Module Code</th><th>Module Name</th><th>Faculty</th><th>Degree</th><th class="action-column">Action</th></tr></thead><tbody>';
 
     modules.forEach(function (module) {
-        html += '<tr><td>' + module.module_code + '</td><td>' + module.module_name + '</td><td>' + module.faculty + '</td><td>' + module.degree + '</td></tr>';
+        html += '<tr><td>' + module.module_code + '</td><td>' + module.module_name + '</td><td>' + module.faculty + '</td><td>' + module.degree + '</td>';
+
+        // Edit and Delete buttons within the same column
+        html += '<td class="action-buttons"><form action="/edit-module" method="post">';
+        html += '<input type="hidden" name="module_code" value="' + module.module_code + '">';
+        html += '<button class="button-65" type="submit">Edit</button></form>';
+
+        html += '<form action="/delete-module" method="post" onsubmit="return confirm(\'Are you sure you want to delete?\');">';
+        html += '<input type="hidden" name="module_code" value="' + module.module_code + '">';
+        html += '<button class="button-65" type="submit">Delete</button></form></td></tr>';
     });
 
     html += '</tbody></table>';
 
     document.getElementById('moduleDetails').innerHTML = html;
-}
+  }
 
 function filterModules() {
     var input, filter, table, tr, td, i, txtValue;

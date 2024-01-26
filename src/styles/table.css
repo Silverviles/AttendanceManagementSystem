@@ -40,6 +40,16 @@
     white-space: nowrap;
 }
 
+.action-buttons .button-65{
+    width: auto !important;
+    margin: 0 20px;
+}
+
+.action-buttons{
+    display: flex;
+    justify-content: center;
+}
+
 .button-65:hover {
     background-color: rgb(80, 55, 104);
     box-shadow: rgba(0, 0, 0, .05) 0 5px 30px, rgba(0, 0, 0, .05) 0 1px 4px;

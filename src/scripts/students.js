@@ -18,16 +18,25 @@ function getStudentDetails() {
 }
 
 function displayStudentDetails(students) {
-    var html = '<table border="1" class="details_t" id="student_details_t"><thead><tr><th>Student ID</th><th>Student Name</th><th>Faculty</th></tr></thead><tbody>';
+    var html = '<table border="1" class="details_t" id="student_details_t"><thead><tr><th>Student ID</th><th>Student Name</th><th>Faculty</th><th class="action-column">Action</th></tr></thead><tbody>';
 
     students.forEach(function (student) {
-        html += '<tr><td>' + student.student_id + '</td><td>' + student.student_name + '</td><td>' + student.faculty + '</td></tr>';
+        html += '<tr><td>' + student.student_id + '</td><td>' + student.student_name + '</td><td>' + student.faculty + '</td>';
+
+        // Edit and Delete buttons within the same column
+        html += '<td class="action-buttons"><form action="/edit-student" method="post">';
+        html += '<input type="hidden" name="student_id" value="' + student.student_id + '">';
+        html += '<button class="button-65" type="submit">Edit</button></form>';
+
+        html += '<form action="/delete-student" method="post" onsubmit="return confirm(\'Are you sure you want to delete?\');">';
+        html += '<input type="hidden" name="student_id" value="' + student.student_id + '">';
+        html += '<button class="button-65" type="submit">Delete</button></form></td></tr>';
     });
 
     html += '</tbody></table>';
 
     document.getElementById('studentDetails').innerHTML = html;
-}
+  }
 
 function filterStudents() {
     var input, filter, table, tr, td, i, txtValue;

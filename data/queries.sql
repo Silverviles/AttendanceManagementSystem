@@ -54,8 +54,8 @@ CREATE TABLE IF NOT EXISTS lecturer (
     user_id INT PRIMARY KEY,
     lecturer_id CHAR(10) NOT NULL UNIQUE,
     faculty CHAR(2) NOT NULL,
-    CONSTRAINT fk_lecturer_user_id FOREIGN KEY (user_id) REFERENCES users(id),
-    CONSTRAINT fk_lecturer_faculty FOREIGN KEY (faculty) REFERENCES faculty(faculty_id)
+    CONSTRAINT fk_lecturer_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE, 
+    CONSTRAINT fk_lecturer_faculty FOREIGN KEY (faculty) REFERENCES faculty(faculty_id) ON DELETE CASCADE
 );
 
 INSERT INTO lecturer (user_id, lecturer_id, faculty)
@@ -74,13 +74,13 @@ VALUES
 -- Add foreign key constraint to the faculty_head in the faculty table
 ALTER TABLE faculty
 ADD CONSTRAINT fk_faculty_head
-FOREIGN KEY (faculty_head) REFERENCES lecturer(user_id);
+FOREIGN KEY (faculty_head) REFERENCES lecturer(user_id) ON DELETE CASCADE;
 
 CREATE TABLE IF NOT EXISTS degree (
 	degree_id CHAR(5) PRIMARY KEY,
     degree_name VARCHAR(100) NOT NULL UNIQUE,
     faculty CHAR(2) NOT NULL,
-    CONSTRAINT fk_degree_faculty FOREIGN KEY (faculty) REFERENCES faculty(faculty_id)
+    CONSTRAINT fk_degree_faculty FOREIGN KEY (faculty) REFERENCES faculty(faculty_id) ON DELETE CASCADE
 );
 
 INSERT INTO degree (degree_id, degree_name, faculty) VALUES
@@ -96,9 +96,9 @@ CREATE TABLE IF NOT EXISTS student (
     faculty CHAR(2) NOT NULL,
     degree CHAR(5) NOT NULL,
     batch CHAR(5) NOT NULL,
-    CONSTRAINT fk_student_user_id FOREIGN KEY (user_id) REFERENCES users(id),
-    CONSTRAINT fk_student_faculty FOREIGN KEY (faculty) REFERENCES faculty(faculty_id),
-    CONSTRAINT fk_student_degree FOREIGN KEY (degree) REFERENCES degree(degree_id)
+    CONSTRAINT fk_student_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT fk_student_faculty FOREIGN KEY (faculty) REFERENCES faculty(faculty_id) ON DELETE CASCADE,
+    CONSTRAINT fk_student_degree FOREIGN KEY (degree) REFERENCES degree(degree_id) ON DELETE CASCADE
 );
 
 -- Add dummy records to student with corresponding user_id
@@ -121,9 +121,9 @@ CREATE TABLE IF NOT EXISTS module (
     module_owner INT NOT NULL UNIQUE,
     faculty CHAR(2) NOT NULL,
     degree CHAR(5) NOT NULL,
-    CONSTRAINT fk_module_faculty FOREIGN KEY (faculty) REFERENCES faculty(faculty_id),
-    CONSTRAINT fk_module_degree FOREIGN KEY (degree) REFERENCES degree(degree_id),
-    CONSTRAINT fk_module_module_owner FOREIGN KEY (module_owner) REFERENCES lecturer(user_id)
+    CONSTRAINT fk_module_faculty FOREIGN KEY (faculty) REFERENCES faculty(faculty_id) ON DELETE CASCADE,
+    CONSTRAINT fk_module_degree FOREIGN KEY (degree) REFERENCES degree(degree_id) ON DELETE CASCADE,
+    CONSTRAINT fk_module_module_owner FOREIGN KEY (module_owner) REFERENCES lecturer(user_id) ON DELETE CASCADE
 );
 
 -- Insert dummy records into the module table
@@ -144,9 +144,9 @@ CREATE TABLE IF NOT EXISTS student_to_module (
     module_code CHAR(8) NOT NULL,
     faculty CHAR(2) NOT NULL,
     degree CHAR(5) NOT NULL,
-    CONSTRAINT pk_student_to_module PRIMARY KEY (student_id, module_code),
-    CONSTRAINT fk_student_to_module_faculty FOREIGN KEY (faculty) REFERENCES faculty(faculty_id),
-    CONSTRAINT fk_student_to_module_degree FOREIGN KEY (degree) REFERENCES degree(degree_id)
+    CONSTRAINT pk_student_to_module PRIMARY KEY (student_id, module_code) ON DELETE CASCADE,
+    CONSTRAINT fk_student_to_module_faculty FOREIGN KEY (faculty) REFERENCES faculty(faculty_id) ON DELETE CASCADE,
+    CONSTRAINT fk_student_to_module_degree FOREIGN KEY (degree) REFERENCES degree(degree_id) ON DELETE CASCADE
 );
 
 -- Insert dummy data into the student_to_module table based on student-module relationships

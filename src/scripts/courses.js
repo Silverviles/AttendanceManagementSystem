@@ -2,7 +2,7 @@ function getDegreeDetails() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', '../php/get_degrees.php', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
-    
+
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
@@ -18,19 +18,54 @@ function getDegreeDetails() {
 }
 
 function displayDegreeDetails(degrees) {
-    // Assuming degrees is an array of objects with degree details
-
-    var html = '<table border="1" class="details_t" id="degree_details_t"><thead><tr><th>Degree ID</th><th>Degree Name</th><th>Faculty</th></tr></thead><tbody>';
+    var html = '<table border="1" class="details_t" id="degree_details_t"><thead><tr><th>Degree ID</th><th>Degree Name</th><th>Faculty</th><th class="action-column">Action</th></tr></thead><tbody>';
 
     degrees.forEach(function (degree) {
-        html += '<tr><td>' + degree.degree_id + '</td><td>' + degree.degree_name + '</td><td>' + degree.faculty + '</td></tr>';
+        html += '<tr><td>' + degree.degree_id + '</td><td>' + degree.degree_name + '</td><td>' + degree.faculty + '</td>';
+
+        // Edit and Delete buttons within the same column
+        html += '<td class="action-buttons">';
+        
+        // Edit button form
+        html += '<form action="/edit-degree" method="post">';
+        html += '<input type="hidden" name="degree_id" value="' + degree.degree_id + '">';
+        html += '<button class="button-65" type="submit">Edit</button></form>';
+
+        // Delete button form with JavaScript click event
+        html += '<button class="button-65 delete-button" data-degree-id="' + degree.degree_id + '">Delete</button></td></tr>';
     });
 
     html += '</tbody></table>';
 
     // Display the degree details in the #degreeDetails div
     document.getElementById('degreeDetails').innerHTML = html;
+
+    // Add click event listeners to Delete buttons
+    var deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons.forEach(function (button) {
+        button.addEventListener('click', function() {
+            var degreeId = this.getAttribute('data-degree-id');
+            confirmAndDelete(degreeId);
+        });
+    });
 }
+
+function confirmAndDelete(degreeId) {
+    if (confirm('Are you sure you want to delete?')) {
+        // Perform AJAX request to delete.php
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../php/delete.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Handle the response if needed
+                console.log(xhr.responseText);
+            }
+        };
+        xhr.send('degree_id=' + degreeId);
+    }
+}
+
 
 function filterDegrees() {
     var input, filter, table, tr, td, i, txtValue;

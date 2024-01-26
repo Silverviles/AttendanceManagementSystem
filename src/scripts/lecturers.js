@@ -39,16 +39,26 @@ function getLecturersWithNoModules(){
 }
 
 function displayLecturerDetails(lecturers) {
-    var html = '<table border="1" class="details_t" id="lecturer_details_t"><thead><tr><th>Lecturer Code</th><th>Lecturer Name</th><th>Faculty</th></tr></thead><tbody>';
+    var html = '<table border="1" class="details_t" id="lecturer_details_t"><thead><tr><th>Lecturer Code</th><th>Lecturer Name</th><th>Faculty</th><th class="action-column">Action</th></tr></thead><tbody>';
 
     lecturers.forEach(function (lecturer) {
-        html += '<tr><td>' + lecturer.lecturer_id + '</td><td>' + lecturer.lecturer_name + '</td><td>' + lecturer.faculty + '</td></tr>';
+        html += '<tr><td>' + lecturer.lecturer_id + '</td><td>' + lecturer.lecturer_name + '</td><td>' + lecturer.faculty + '</td>';
+
+        // Edit and Delete buttons within the same column
+        html += '<td class="action-buttons"><form action="/edit-lecturer" method="post">';
+        html += '<input type="hidden" name="lecturer_id" value="' + lecturer.lecturer_id + '">';
+        html += '<button class="button-65" type="submit">Edit</button></form>';
+
+        html += '<form action="/delete-lecturer" method="post" onsubmit="return confirm(\'Are you sure you want to delete?\');">';
+        html += '<input type="hidden" name="lecturer_id" value="' + lecturer.lecturer_id + '">';
+        html += '<button class="button-65" type="submit">Delete</button></form></td></tr>';
     });
 
     html += '</tbody></table>';
 
     document.getElementById('lecturerDetails').innerHTML = html;
 }
+
 
 function filterLecturers() {
     var input, filter, table, tr, td, i, txtValue;

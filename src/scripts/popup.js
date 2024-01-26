@@ -33,7 +33,9 @@ function fetchAndPopulateDropdown(url, dropdownId, dropdownExtend = null) {
     xhr.send();
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', reloadDropdownsAfterEdit);
+
+function reloadDropdownsAfterEdit(){
     // Fetch and populate faculty dropdown on document load
     fetchAndPopulateDropdown('../php/get_faculties.php', 'faculty', 'course');
     fetchAndPopulateDropdown('../php/get_faculties.php', 'faculty', 'module');
@@ -50,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
     getModuleDetails();
     getLecturerDetails();
     getStudentDetails();
-});
+}
 
 function handleFormSubmission(formId, url, callback) {
     document.getElementById(formId).addEventListener('submit', function (event) {
@@ -81,6 +83,8 @@ function handleFormSubmission(formId, url, callback) {
 
         xhr.send(formData);
     });
+
+    reloadDropdownsAfterEdit();
 }
 
 // Handle course form submission
