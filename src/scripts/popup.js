@@ -95,4 +95,11 @@ handleFormSubmission('lecturerForm', '../php/add_lecturer.php', getLecturerDetai
 // Handle student form submission
 handleFormSubmission('studentForm', '../php/add_student.php', getStudentDetails);
 
-document.querySelectorAll("dialog").addEventListener("click", )
+document.querySelectorAll(".close_popup").forEach(function (button) {
+    button.addEventListener("click", function () {
+        // Close the corresponding popup dialog
+        var dialogId = button.closest("dialog").id;
+        var dialog = document.getElementById(dialogId);
+        dialog.style.display = "none";
+    });
+});

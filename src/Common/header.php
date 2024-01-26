@@ -6,7 +6,7 @@
                 <div class="right"></div>
             </div>
             <li>
-                <a href="#"><b>Dashboard</b></a>
+                <a id="header_text" href="#">Dashboard</a>
             </li>
         </ul>
     </div>

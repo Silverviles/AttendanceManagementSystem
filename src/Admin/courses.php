@@ -12,5 +12,5 @@
 
         <button class="button-65" id="add_course_btn">Add Course</button>
     </div>
-    <div class="details_t" id="degreeDetails"></div>
+    <div id="degreeDetails"></div>
 </div>

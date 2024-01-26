@@ -40,6 +40,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
     linkColor.forEach(l => l.addEventListener('click', colorLink));
 
+    var headerText = document.getElementById("header_text");
+
     // Iterate through each element and attach a click event listener
     for (var i = 0; i < linkColor.length; i++) {
         linkColor[i].addEventListener('click', function (event) {
@@ -54,24 +56,31 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
             // Hide all elements with the class 'admin_content'
             var adminContents = document.getElementsByClassName('admin_content');
-            for (var i = 0; i < adminContents.length; i++) {
-                adminContents[i].style.display = 'none';
+            for (var j = 0; j < adminContents.length; j++) {
+                adminContents[j].style.display = 'none';
             }
 
             switch (this.id) {
                 case "dashboard_nav": document.getElementById("admin_dashboard").style.display = "block";
+                    headerText.textContent = "Dashboard";
                     break;
                 case "faculties_nav": document.getElementById("admin_faculties").style.display = "block";
+                    headerText.textContent = "Faculties";
                     break;
                 case "courses_nav": document.getElementById("admin_courses").style.display = "block";
+                    headerText.textContent = "Courses";
                     break;
                 case "modules_nav": document.getElementById("admin_modules").style.display = "block";
+                    headerText.textContent = "Modules";
                     break;
                 case "lecturers_nav": document.getElementById("admin_lecturers").style.display = "block";
+                    headerText.textContent = "Lecturers";
                     break;
                 case "students_nav": document.getElementById("admin_students").style.display = "block";
+                    headerText.textContent = "Students";
                     break;
                 case "analysis_nav": document.getElementById("admin_analysis").style.display = "block";
+                    headerText.textContent = "Analysis";
                     break;
             }
         });

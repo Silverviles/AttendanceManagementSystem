@@ -1,7 +1,10 @@
 <dialog id="dialog_faculty" class="dialog">
     <div style="display: flex; justify-content: center;">
         <h2>Add New Course</h2>
-        <button class="close_popup" style="float: right;">X</button>
+        <div class="close_popup_body">
+        <button class="close_popup" style="float: right;">
+        
+        </button>
     </div>
     <form id="courseForm">
         <label for="course_id">Course Code</label><br>

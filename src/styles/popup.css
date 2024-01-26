@@ -39,3 +39,10 @@ dialog {
         opacity: 1;
     }
 }
+
+.close_popup {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    content: "\00d7";
+}
