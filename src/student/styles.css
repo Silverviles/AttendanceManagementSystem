@@ -1,0 +1,357 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: "Nunito",sans-serif;
+}
+body{
+    background: rgb(226, 226, 266);
+}
+nav{
+    position: sticky;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    left: 0;
+    width: 90px;
+    /* width: 280px; */
+    background: #fff;
+    overflow: hidden;
+    transition: 1s; 
+}
+nav:hover{
+    width: 280px;
+    transition: 1s;
+}
+.logo{
+    text-align: center;
+    display: flex;
+    margin: 10px 0 0 10px;
+    padding-bottom: 3rem;
+}
+.logo img{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+.logo span{
+    font-weight: bold;
+    padding-left: 20px;
+    font-size: 18px;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+a{
+    position: relative;
+    width: 280px;
+    font-size: 14px;
+    color: rgb(85,83,83);
+    display: table;
+    padding: 10px;
+}
+nav .fa-solid{
+    position: relative;
+    width: 70px;
+    height: 40px;
+    top: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+.nav-item{
+    position: relative;
+    top:12px;
+    margin-left: 10px;
+}
+a:hover{
+    background: #eee;
+    transition: 0.5s;
+}
+a:hover i{
+    color: #0000ff;
+}
+.logout{
+    position: absolute;
+    bottom: 0;
+}
+.container{
+    display: flex;
+}
+
+/* Main Section : Dashboard*/
+.main{
+    position: relative;
+    padding: 50px;
+    width: 100%;
+}
+.main-top{
+    display: flex;
+    width: 100%;
+}
+.main-top i{
+    position: absolute;
+    right: 0;
+    margin: 10px 30px;
+    color: rgb(110,109,109);
+    cursor: pointer;
+}
+.main .modules{
+    display: flex;
+    width: 100%;
+    margin-left: 120px;
+}
+.modules .card{
+    width: 25%;
+    margin: 10px;
+    background: #fff;
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+}
+.modules .card p{
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+.modules table{
+    margin: auto;
+}
+.modules .per span{
+    padding: 5px;
+    border-radius: 10px;
+    background: rgb(223,223,223);
+}
+.modules td{
+    font-size: 14px;
+    padding-right: 10px;
+}
+.modules .card button{
+    width: 100%;
+    text-decoration: #333;
+    margin-top: 8px;
+    padding: 7px;
+    cursor: pointer;
+    border-radius: 10px;
+    background: transparent;
+    border: 1px solid #0000ff;
+}
+.modules .card button:hover{
+    background: #0000ff;
+    color: #fff;
+    transition: 0.5s;
+}
+
+/* Upcoming Classes */
+.upcoming-class {
+    margin-top: 10px; /* Increase the top margin for upcoming class */
+    text-transform: capitalize;
+}
+
+.class-list {
+    width: 100%;
+    padding: 30px; /* Increase padding for the class list */
+    margin-top: 20px; /* Increase top margin for the class list */
+    background: #fff;
+    border-radius: 15px; /* Slightly increase border radius */
+    box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+}
+
+.table {
+    border-collapse: collapse;
+    margin: 70px 0; /* Increase the top margin for the table */
+    font-size: 15px;
+    min-width: 100%;
+    overflow: hidden;
+    border-radius: 15px 15px 0 0; /* Slightly increase border radius */
+}
+
+table thead tr {
+    color: #fff;
+    background: #0000ff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.table th,
+.table td {
+    padding: 15px 20px; /* Increase cell padding */
+}
+
+.table tbody tr {
+    border-bottom: 2px solid #ddd; /* Increase the border thickness */
+    padding: 15px 0; /* Increase padding for each row */
+}
+
+.table tbody tr:nth-of-type(even) {
+    background: #f3f3f3;
+}
+
+.table tbody tr.active {
+    font-weight: bold;
+    color: #0000ff;
+}
+
+.table tbody tr:last-of-type {
+    border-bottom: 3px solid #0000ff; /* Increase the border thickness at the last row */
+}
+
+/* Student Attendance */
+:where(.mark-attendance, form, .input-field, header) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .mark-attendance {
+    background: #fff;
+    padding: 50px 75px;
+    border-radius: 10px;
+    row-gap: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  }
+  .mark-attendance header {
+    height: 65px;
+    width: 65px;
+    background: #4070f4;
+    color: #fff;
+    font-size: 2.5rem;
+    border-radius: 50%;
+  }
+  .mark-attendance h4 {
+    font-size: 1.25rem;
+    color: #333;
+    font-weight: 500;
+  }
+  form .input-field {
+    flex-direction: row;
+    column-gap: 10px;
+  }
+  .input-field input {
+    height: 45px;
+    width: 42px;
+    border-radius: 6px;
+    outline: none;
+    font-size: 1.125rem;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  .input-field input:focus {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  }
+  .input-field input::-webkit-inner-spin-button,
+  .input-field input::-webkit-outer-spin-button {
+    display: none;
+  }
+  form button {
+    margin-top: 25px;
+    width: 100%;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    padding: 9px 0;
+    cursor: pointer;
+    border-radius: 20px;
+    pointer-events: none;
+    background: #6e93f7;
+    transition: all 0.2s ease;
+  }
+  form button.active {
+    background: #4070f4;
+    pointer-events: auto;
+  }
+  form button:hover {
+    background: #0e4bf1;
+  }
+
+  /* Today Classes */
+.Attendance{
+    margin-top: 20px;
+    text-transform: capitalize;
+}
+.attendance-list{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+}
+.table{
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 15px;
+    min-width: 100%;
+    overflow: hidden;
+    border-radius: 10px 10px 0 0;
+} 
+table thead tr{
+    color: #fff;
+    background: #0000ff;
+    text-align: left;
+    font-weight: bold;
+}
+.table th
+.table td{
+    padding: 12px 15px;
+}
+.table tbody tr{
+    border-bottom: 1px solid #ddd;
+}
+.table tbody tr:nth-of-type(even){
+    background: #f3f3f3;
+}
+.table tbody tr.active{
+    font-weight: bold;
+    color: #0000ff;
+}
+.table tbody tr:last-of-type{
+    border-bottom: 2px solid #0000ff;
+}
+
+
+/* Absent Application */
+#absent-application #absentForm{
+    width: 50%;
+    margin: 20px;
+    margin-left: 300px;
+    background: #fff;
+    text-align: center;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+}
+form {
+    max-width: 500px;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+input, select,textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button[type="reset"] {
+    background-color: #f44336;
+}
