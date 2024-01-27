@@ -2,7 +2,7 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "password";
+$password = ""; //null
 $database = "bawwa";
 
 // Create a connection
