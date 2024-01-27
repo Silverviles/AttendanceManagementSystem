@@ -28,15 +28,41 @@ function displayModuleDetails(modules) {
         html += '<input type="hidden" name="module_code" value="' + module.module_code + '">';
         html += '<button class="button-65" type="submit">Edit</button></form>';
 
-        html += '<form action="/delete-module" method="post" onsubmit="return confirm(\'Are you sure you want to delete?\');">';
-        html += '<input type="hidden" name="module_code" value="' + module.module_code + '">';
-        html += '<button class="button-65" type="submit">Delete</button></form></td></tr>';
+        html += '<button class="button-65 delete-button" data-module-code="' + module.module_code + '">Delete</button></td></tr>';
     });
 
     html += '</tbody></table>';
 
     document.getElementById('moduleDetails').innerHTML = html;
-  }
+
+    // Add click event listeners to Delete buttons
+    var deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            var moduleCode = this.getAttribute('data-module-code');
+            confirmAndDeleteModule(moduleCode);
+        });
+    });
+}
+
+
+function confirmAndDeleteModule(moduleCode) {
+    if (confirm('Are you sure you want to delete?')) {
+        // Perform AJAX request to delete.php
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../php/delete.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Handle the response if needed
+                console.log(xhr.responseText);
+                getModuleDetails(); // Update module details after deletion
+            }
+        };
+        xhr.send('module_code=' + moduleCode);
+    }
+}
+
 
 function filterModules() {
     var input, filter, table, tr, td, i, txtValue;
@@ -58,9 +84,6 @@ function filterModules() {
         }
     }
 }
-
-
-document.addEventListener('DOMContentLoaded', getModuleDetails);
 
 document.getElementById("add_module_btn").addEventListener('click', function () {
     document.getElementById("dialog_module").style.display = "block";

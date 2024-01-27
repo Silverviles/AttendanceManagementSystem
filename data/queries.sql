@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS lecturer (
     lecturer_id CHAR(10) NOT NULL UNIQUE,
     faculty CHAR(2) NOT NULL,
     CONSTRAINT fk_lecturer_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE, 
-    CONSTRAINT fk_lecturer_faculty FOREIGN KEY (faculty) REFERENCES faculty(faculty_id) ON DELETE CASCADE
+    CONSTRAINT fk_lecturer_faculty FOREIGN KEY (faculty) REFERENCES faculty(faculty_id)
 );
 
 INSERT INTO lecturer (user_id, lecturer_id, faculty)
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS student (
     batch CHAR(5) NOT NULL,
     CONSTRAINT fk_student_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     CONSTRAINT fk_student_faculty FOREIGN KEY (faculty) REFERENCES faculty(faculty_id) ON DELETE CASCADE,
-    CONSTRAINT fk_student_degree FOREIGN KEY (degree) REFERENCES degree(degree_id) ON DELETE CASCADE
+    CONSTRAINT fk_student_degree FOREIGN KEY (degree) REFERENCES degree(degree_id)
 );
 
 -- Add dummy records to student with corresponding user_id
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS student_to_module (
     module_code CHAR(8) NOT NULL,
     faculty CHAR(2) NOT NULL,
     degree CHAR(5) NOT NULL,
-    CONSTRAINT pk_student_to_module PRIMARY KEY (student_id, module_code) ON DELETE CASCADE,
+    CONSTRAINT pk_student_to_module PRIMARY KEY (student_id, module_code),
     CONSTRAINT fk_student_to_module_faculty FOREIGN KEY (faculty) REFERENCES faculty(faculty_id) ON DELETE CASCADE,
     CONSTRAINT fk_student_to_module_degree FOREIGN KEY (degree) REFERENCES degree(degree_id) ON DELETE CASCADE
 );

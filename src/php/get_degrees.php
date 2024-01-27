@@ -1,8 +1,15 @@
 <?php
 include_once 'config.php';
 
-// Fetch degree details from the database
-$sql = "SELECT * FROM degree";
+if(isset($_GET['param']) && !empty($_GET['param'])) {
+    // Use the parameter to filter the query, for example, filtering by faculty
+    $param = $_GET['param'];
+    $sql = "SELECT * FROM degree WHERE degree_id = '$param'";
+} else {
+    // Fetch all degree details from the database
+    $sql = "SELECT * FROM degree";
+}
+
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -12,7 +19,8 @@ if ($result->num_rows > 0) {
     }
     echo json_encode($degrees);
 } else {
-    echo "No degrees found";
+    echo "No degrees";
 }
 
 $conn->close();
+?>

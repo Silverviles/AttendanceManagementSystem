@@ -6,24 +6,31 @@ function fetchAndPopulateDropdown(url, dropdownId, dropdownExtend = null) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                var data = JSON.parse(xhr.responseText);
-                // Populate the dropdown menu
-                var dropdown = dropdownExtend != null ? document.getElementById(dropdownId + "_" + dropdownExtend) : document.getElementById(dropdownId);
-                data.forEach(function (item) {
-                    var option = document.createElement('option');
-                    switch (dropdownId) {
-                        case "faculty": option.value = item.faculty_id;
-                            option.textContent = item.faculty_name;
-                            break;
-                        case "degree": option.value = item.degree_id;
-                            option.textContent = item.degree_name;
-                            break;
-                        case "module_owner" : option.value = item.user_id;
-                            option.textContent = item.lecturer_id;
-                            break;
-                    }
-                    dropdown.appendChild(option);
-                });
+                try {
+                    var data = JSON.parse(xhr.responseText);
+
+                    // Populate the dropdown menu
+                    var dropdown = dropdownExtend != null ? document.getElementById(dropdownId + "_" + dropdownExtend) : document.getElementById(dropdownId);
+                    data.forEach(function (item) {
+                        var option = document.createElement('option');
+                        switch (dropdownId) {
+                            case "faculty": option.value = item.faculty_id;
+                                option.textContent = item.faculty_name;
+                                break;
+                            case "degree": option.value = item.degree_id;
+                                option.textContent = item.degree_name;
+                                break;
+                            case "module_owner": option.value = item.user_id;
+                                option.textContent = item.lecturer_id;
+                                break;
+                        }
+                        dropdown.appendChild(option);
+                    });
+                }
+                catch (error) {
+                    console.log("No Items");
+                }
+
             } else {
                 console.error('Error fetching data:', xhr.statusText);
             }
@@ -33,9 +40,11 @@ function fetchAndPopulateDropdown(url, dropdownId, dropdownExtend = null) {
     xhr.send();
 }
 
-document.addEventListener('DOMContentLoaded', reloadDropdownsAfterEdit);
+document.addEventListener('DOMContentLoaded', function (){
+    reloadDropdownsAfterEdit
+});
 
-function reloadDropdownsAfterEdit(){
+function reloadDropdownsAfterEdit() {
     // Fetch and populate faculty dropdown on document load
     fetchAndPopulateDropdown('../php/get_faculties.php', 'faculty', 'course');
     fetchAndPopulateDropdown('../php/get_faculties.php', 'faculty', 'module');
@@ -82,9 +91,8 @@ function handleFormSubmission(formId, url, callback) {
         };
 
         xhr.send(formData);
+        reloadDropdownsAfterEdit();
     });
-
-    reloadDropdownsAfterEdit();
 }
 
 // Handle course form submission
@@ -98,6 +106,8 @@ handleFormSubmission('lecturerForm', '../php/add_lecturer.php', getLecturerDetai
 
 // Handle student form submission
 handleFormSubmission('studentForm', '../php/add_student.php', getStudentDetails);
+
+reloadDropdownsAfterEdit();
 
 document.querySelectorAll(".close_popup").forEach(function (button) {
     button.addEventListener("click", function () {

@@ -17,6 +17,23 @@ function getStudentDetails() {
     xhr.send();
 }
 
+function confirmAndDeleteStudent(studentId) {
+    if (confirm('Are you sure you want to delete?')) {
+        // Perform AJAX request to delete.php or any appropriate endpoint
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../php/delete.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Handle the response if needed
+                console.log(xhr.responseText);
+                getStudentDetails(); // Update student details after deletion
+            }
+        };
+        xhr.send('student_id=' + studentId);
+    }
+}
+
 function displayStudentDetails(students) {
     var html = '<table border="1" class="details_t" id="student_details_t"><thead><tr><th>Student ID</th><th>Student Name</th><th>Faculty</th><th class="action-column">Action</th></tr></thead><tbody>';
 
@@ -28,15 +45,23 @@ function displayStudentDetails(students) {
         html += '<input type="hidden" name="student_id" value="' + student.student_id + '">';
         html += '<button class="button-65" type="submit">Edit</button></form>';
 
-        html += '<form action="/delete-student" method="post" onsubmit="return confirm(\'Are you sure you want to delete?\');">';
-        html += '<input type="hidden" name="student_id" value="' + student.student_id + '">';
-        html += '<button class="button-65" type="submit">Delete</button></form></td></tr>';
+        html += '<button class="button-65 delete-button-student" data-student-id="' + student.student_id + '">Delete</button></td></tr>';
     });
 
     html += '</tbody></table>';
 
     document.getElementById('studentDetails').innerHTML = html;
-  }
+
+    // Add click event listeners to Delete buttons
+    var deleteButtons = document.querySelectorAll('.delete-button-student');
+    deleteButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            var studentId = this.getAttribute('data-student-id');
+            confirmAndDeleteStudent(studentId);
+        });
+    });
+}
+
 
 function filterStudents() {
     var input, filter, table, tr, td, i, txtValue;
@@ -58,8 +83,6 @@ function filterStudents() {
         }
     }
 }
-
-document.addEventListener('DOMContentLoaded', getStudentDetails);
 
 document.getElementById("add_student_btn").addEventListener('click', function () {
     document.getElementById("dialog_student").style.display = "block";
