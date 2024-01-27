@@ -37,4 +37,3 @@
     <script src="../scripts/popup.js"></script>
 </body>
 </html>
-<!--Changes-->
