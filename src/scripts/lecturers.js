@@ -49,9 +49,7 @@ function displayLecturerDetails(lecturers) {
             html += '<td class="action-buttons">';
 
             // Edit button form
-            html += '<form action="/edit-lecturer" method="post">';
-            html += '<input type="hidden" name="lecturer_id" value="' + lecturer.lecturer_id + '">';
-            html += '<button class="button-65" type="submit">Edit</button></form>';
+            html += '<button class="button-65 edit-button-lecturer" data-lecturer-id="' + lecturer.lecturer_id + '">Edit</button>';
 
             // Delete button form with JavaScript click event
             html += '<button class="button-65 delete-button-lecturer" data-lecturer-id="' + lecturer.lecturer_id + '">Delete</button></td></tr>';
@@ -73,6 +71,17 @@ function displayLecturerDetails(lecturers) {
             confirmAndDeleteLecturer(lecturerId);
         });
     });
+
+    // Add click event listeners to Edit buttons for lecturers
+    var editButtons = document.querySelectorAll('.edit-button-lecturer');
+
+    editButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            var lecturerId = this.getAttribute('data-lecturer-id');
+            openEditLecturerPopup(lecturerId);
+        });
+    });
+
 }
 
 function confirmAndDeleteLecturer(lecturerId) {
@@ -114,11 +123,67 @@ function filterLecturers() {
     }
 }
 
-document.getElementById("add_lecturer_btn").addEventListener('click', function () {
-    document.getElementById("dialog_lecturer").style.display = "block";
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById("add_lecturer_btn").addEventListener('click', function () {
+        document.getElementById("dialog_lecturer").style.display = "block";
+        var addLecturerDoneButton = document.getElementById('edit_lecturer_done');
+        // Check if the element exists
+        if (addLecturerDoneButton) {
+            // Update the ID attribute
+            addLecturerDoneButton.id = 'add_lecturer_done';
+            addLecturerDoneButton.value = "Add Lecturer";
+            addLecturerDoneButton.name = 'add_lecturer_done';
+        }
+    });
+
+    document.getElementById("add_lecturer_done").addEventListener('click', function () {
+        document.getElementById("dialog_lecturer").style.display = "none";
+        getLecturerDetails();
+    });
 });
 
-document.getElementById("add_lecturer_done").addEventListener('click', function () {
-    document.getElementById("dialog_lecturer").style.display = "none";
-    getLecturerDetails();
-});
+function openEditLecturerPopup(lecturerId) {
+    // Fetch lecturer details using lecturerId
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '../php/get_lecturers.php?lecturer_id=' + lecturerId, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                var lecturerDetails = JSON.parse(xhr.responseText);
+                populateLecturerPopup(lecturerDetails);
+            } else {
+                console.error('Error fetching lecturer details:', xhr.statusText);
+            }
+        }
+    };
+
+    xhr.send();
+}
+
+function populateLecturerPopup(lecturerDetails) {
+    // Populate the dialog form with lecturer details
+    var dialog = document.getElementById('dialog_lecturer');
+    var lecturerForm = document.getElementById('lecturerForm');
+
+    // Show the dialog
+    dialog.style.display = "block";
+
+    // Set form fields with lecturer details
+    lecturerForm.elements['username'].value = lecturerDetails[0].username;
+    lecturerForm.elements['password'].value = lecturerDetails[0].password;
+    lecturerForm.elements['first_name'].value = lecturerDetails[0].first_name;
+    lecturerForm.elements['last_name'].value = lecturerDetails[0].last_name;
+    lecturerForm.elements['email'].value = lecturerDetails[0].email;
+    lecturerForm.elements['contact_no'].value = lecturerDetails[0].contact_no;
+    lecturerForm.elements['lecturer_id'].value = lecturerDetails[0].lecturer_id;
+
+    // Update the ID, value, and name attributes of the submit button
+    var addLecturerDoneButton = document.getElementById('add_lecturer_done');
+    if (addLecturerDoneButton) {
+        addLecturerDoneButton.id = 'edit_lecturer_done';
+        addLecturerDoneButton.value = 'Edit Lecturer';
+        addLecturerDoneButton.name = 'edit_lecturer_done';
+    }
+}

@@ -70,6 +70,10 @@ function handleFormSubmission(formId, url, callback) {
         // Gather form data
         var formData = new FormData(this);
 
+        // Append submit button and its value to form data
+        var submitButton = event.submitter; // Get the clicked submit button
+        formData.append(submitButton.name, submitButton.value);
+
         // Send AJAX request
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url, true);
@@ -81,7 +85,6 @@ function handleFormSubmission(formId, url, callback) {
 
                     // You can handle the response as needed
                     if (typeof callback === 'function') {
-                        console.log(callback);
                         callback(); // Invoke the callback function if provided
                     }
                 } else {
@@ -117,3 +120,4 @@ document.querySelectorAll(".close_popup").forEach(function (button) {
         dialog.style.display = "none";
     });
 });
+

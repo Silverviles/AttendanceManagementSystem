@@ -8,15 +8,15 @@
     </div>
     <form id="courseForm">
         <label for="course_id">Course Code</label><br>
-        <input type="text" name="course_id" id="course_id" required><br>
+        <input type="text" name="course_id" id="course_id" value="" required><br>
 
         <label for="course_name">Course Name</label><br>
-        <input type="text" name="course_name" id="course_name" required><br>
+        <input type="text" name="course_name" id="course_name" value="" required><br>
 
         <label for="faculty_course">Faculty</label><br>
         <select name="faculty" id="faculty_course"></select><br>
 
-        <input type="submit" value="Add Course" id="add_course_done">
+        <input type="submit" value="Add Course" id="add_course_done" name="add_course_done">
     </form>
 </dialog>
 
@@ -41,7 +41,7 @@
         <label for="degree_module">Degree</label><br>
         <select name="degree" id="degree_module"></select><br>
 
-        <input type="submit" value="Add Module" id="add_module_done">
+        <input type="submit" value="Add Module" id="add_module_done" name="add_module_done">
     </form>
 </dialog>
 
@@ -75,7 +75,7 @@
         <label for="faculty_lecturer">Faculty</label><br>
         <select name="faculty" id="faculty_lecturer"></select><br>
 
-        <input type="submit" value="Add Lecturer" id="add_lecturer_done">
+        <input type="submit" value="Add Lecturer" id="add_lecturer_done" name="add_lecturer_done">
     </form>
 </dialog>
 
