@@ -18,15 +18,15 @@
                     <i class="fa-solid fa-house"></i>
                     <span class="nav-item dashboard">Dashboard</span>
                 </a></li>
-                <li><a href="st_attendance.html">
+                <li><a href="st_attendance.php">
                     <i class="fa-solid fa-chart-simple"></i>
                     <span class="nav-item">Attendance</span>
                 </a></li>
-                <li><a href="st_attendance_history.html">
+                <li><a href="st_attendance_history.php">
                     <i class="fa-solid fa-database"></i>
                     <span class="nav-item">Attendance History</span>
                 </a></li>
-                <li><a href="st_absent_application.html">
+                <li><a href="st_absent_application.php">
                     <i class="fa-solid fa-users-slash"></i>
                     <span class="nav-item">Absent Application</span>
                 </a></li>
