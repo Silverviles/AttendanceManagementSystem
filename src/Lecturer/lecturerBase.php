@@ -18,11 +18,7 @@
     <main>
         <?php include_once './navBar.php'; ?>
         <?php include_once './dashboard.php'; ?>
-        <?php include_once './faculties.php'; ?>
         <?php include_once './courses.php'; ?>
-        <?php include_once './modules.php'; ?>
-        <?php include_once './lecturers.php'; ?>
-        <?php include_once './students.php'; ?>
     </main>
     <?php include_once '../Common/popup.php'; ?>
 

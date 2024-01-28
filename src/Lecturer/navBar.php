@@ -6,30 +6,15 @@
                     <i class='bx bx-grid-alt nav_icon'></i>
                     <span class="nav_name">Dashboard</span>
                 </a>
-                <a href="#" class="nav_link" id="faculties_nav">
-                    <i class='bx bx-user nav_icon'></i>
-                    <span class="nav_name">Faculties</span>
-                </a>
-                <a href="#" class="nav_link" id="courses_nav">
+                <a href="#" class="nav_link" id="create_session_nav">
                     <i class='bx bx-message-square-detail nav_icon'></i>
-                    <span class="nav_name">Courses</span>
+                    <span class="nav_name">Create Session</span>
                 </a>
-                <a href="#" class="nav_link" id="modules_nav">
-                    <i class='bx bx-bookmark nav_icon'></i>
-                    <span class="nav_name">Modules</span>
-                </a>
-                <a href="#" class="nav_link" id="lecturers_nav">
-                    <i class='bx bx-folder nav_icon'></i>
-                    <span class="nav_name">Lecturers</span>
-                </a>
-                <a href="#" class="nav_link" id="students_nav">
+                <a href="#" class="nav_link" id="attendance_history__nav">
                     <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
-                    <span class="nav_name">Students</span>
+                    <span class="nav_name">Attendance History</span>
                 </a>
-                <a href="#" class="nav_link" id="analysis_nav">
-                    <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
-                    <span class="nav_name">Analysis</span>
-                </a>
+
             </div>
         </div> <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span
                 class="nav_name">LogOut</span> </a>
