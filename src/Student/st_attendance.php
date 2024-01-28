@@ -1,3 +1,4 @@
+<?php include_once '../Login/session_error.php'; ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -31,7 +32,7 @@
                     <i class="fa-solid fa-users-slash"></i>
                     <span class="nav-item">Absent Application</span>
                 </a></li>
-                <li><a href="#" class="logout">
+                <li><a href="../Login/logout.php" class="logout">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span class="nav-item">Log Out</span>
                 </a></li>

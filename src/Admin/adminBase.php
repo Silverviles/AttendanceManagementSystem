@@ -1,3 +1,4 @@
+<?php include_once '../Login/session_error.php'; ?>
 <!DOCTYPE html>
 <html>
 
