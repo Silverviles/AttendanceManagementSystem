@@ -1,3 +1,4 @@
+<?php include_once '../Login/session_error.php'; ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,13 +13,13 @@
             <ul>
                 <li><a href="#" class="logo">
                     <img src="logo.png" >
-                    <span class="nav-iten">Student</span>
+                    <span class="nav-item">Student</span>
                 </a></li>
-                <li><a href="#">
+                <li><a href="index.php">
                     <i class="fa-solid fa-house"></i>
-                    <span class="nav-item">Dashboard</span>
+                    <span class="nav-item dashboard">Dashboard</span>
                 </a></li>
-                <li><a href="#">
+                <li><a href="st_attendance.php">
                     <i class="fa-solid fa-chart-simple"></i>
                     <span class="nav-item">Attendance</span>
                 </a></li>
@@ -26,11 +27,11 @@
                     <i class="fa-solid fa-database"></i>
                     <span class="nav-item">Attendance History</span>
                 </a></li>
-                <li><a href="#">
+                <li><a href="st_absent_application.php">
                     <i class="fa-solid fa-users-slash"></i>
                     <span class="nav-item">Absent Application</span>
                 </a></li>
-                <li><a href="#" class="logout">
+                <li><a href="../Login/logout.php" class="logout">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span class="nav-item">Log Out</span>
                 </a></li>

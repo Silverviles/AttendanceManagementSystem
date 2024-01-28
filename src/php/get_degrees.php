@@ -1,9 +1,9 @@
 <?php
 include_once 'config.php';
 
-if(isset($_GET['param']) && !empty($_GET['param'])) {
+if(isset($_GET['degree_id']) && !empty($_GET['degree_id'])) {
     // Use the parameter to filter the query, for example, filtering by faculty
-    $param = $_GET['param'];
+    $param = $_GET['degree_id'];
     $sql = "SELECT * FROM degree WHERE degree_id = '$param'";
 } else {
     // Fetch all degree details from the database
@@ -23,4 +23,3 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
-?>

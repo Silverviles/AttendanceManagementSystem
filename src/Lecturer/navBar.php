@@ -16,7 +16,7 @@
                 </a>
 
             </div>
-        </div> <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span
+        </div> <a href="../Login/logout.php" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span
                 class="nav_name">LogOut</span> </a>
     </nav>
 </div>

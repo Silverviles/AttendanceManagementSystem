@@ -5,4 +5,3 @@ if (extension_loaded('mysqli')) {
 } else {
     echo "MySQLi is not enabled";
 }
-?>

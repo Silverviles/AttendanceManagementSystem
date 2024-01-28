@@ -3,8 +3,8 @@
 
 <head>
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="styles/main.css" />
-    <link rel="stylesheet" type="text/css" href="styles/header.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/main.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/header.css" />
 </head>
 
 <body>
@@ -20,7 +20,7 @@
     </header>
     <div class="container">
         <div class="container-left">
-            <img src="images/login.jpg" alt="Login Image">
+            <img src="../images/login.jpg" alt="Login Image">
         </div>
         <div class="container-right">
             <div class="login_title">
@@ -30,7 +30,7 @@
                 <div class="container_F">
                     <div class="screen">
                         <div class="screen__content">
-                            <form action="php/login.php" method="get" class="login">
+                            <form action="../php/login.php" method="post" class="login">
                                 <div class="login__field">
                                     <i class="login__icon fas fa-user"></i>
                                     <input name="username" type="text" class="login__input" placeholder="User name / Email">

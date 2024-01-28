@@ -18,20 +18,25 @@ function getModuleDetails() {
 }
 
 function displayModuleDetails(modules) {
-    var html = '<table border="1" class="details_t" id="module_details_t"><thead><tr><th>Module Code</th><th>Module Name</th><th>Faculty</th><th>Degree</th><th class="action-column">Action</th></tr></thead><tbody>';
+    var html = "";
+    if (modules !== null && modules.length > 0) {
+        html = '<table border="1" class="details_t" id="module_details_t"><thead><tr><th>Module Code</th><th>Module Name</th><th>Faculty</th><th>Degree</th><th class="action-column">Action</th></tr></thead><tbody>';
 
-    modules.forEach(function (module) {
-        html += '<tr><td>' + module.module_code + '</td><td>' + module.module_name + '</td><td>' + module.faculty + '</td><td>' + module.degree + '</td>';
+        modules.forEach(function (module) {
+            html += '<tr><td>' + module.module_code + '</td><td>' + module.module_name + '</td><td>' + module.faculty + '</td><td>' + module.degree + '</td>';
 
-        // Edit and Delete buttons within the same column
-        html += '<td class="action-buttons"><form action="/edit-module" method="post">';
-        html += '<input type="hidden" name="module_code" value="' + module.module_code + '">';
-        html += '<button class="button-65" type="submit">Edit</button></form>';
+            // Edit and Delete buttons within the same column
+            html += '<td class="action-buttons">';
+            html += '<input type="hidden" name="module_code" value="' + module.module_code + '">';
+            html += '<button class="button-65 edit-button-module" data-module-code="' + module.module_code + '">Edit</button>';
 
-        html += '<button class="button-65 delete-button" data-module-code="' + module.module_code + '">Delete</button></td></tr>';
-    });
+            html += '<button class="button-65 delete-button" data-module-code="' + module.module_code + '">Delete</button></td></tr>';
+        });
 
-    html += '</tbody></table>';
+        html += '</tbody></table>';
+    } else {
+        html = "<p>No modules found.</p>";
+    }
 
     document.getElementById('moduleDetails').innerHTML = html;
 
@@ -43,8 +48,16 @@ function displayModuleDetails(modules) {
             confirmAndDeleteModule(moduleCode);
         });
     });
-}
 
+    // Add click event listeners to Edit buttons
+    var editButtons = document.querySelectorAll('.edit-button-module');
+    editButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            var moduleCode = this.getAttribute('data-module-code');
+            openEditModulePopup(moduleCode);
+        });
+    });
+}
 
 function confirmAndDeleteModule(moduleCode) {
     if (confirm('Are you sure you want to delete?')) {
@@ -85,11 +98,61 @@ function filterModules() {
     }
 }
 
-document.getElementById("add_module_btn").addEventListener('click', function () {
-    document.getElementById("dialog_module").style.display = "block";
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById("add_module_btn").addEventListener('click', function () {
+        document.getElementById("dialog_module").style.display = "block";
+        var addModuleDoneButton = document.getElementById('edit_module_done');
+        // Check if the element exists
+        if (addModuleDoneButton) {
+            // Update the ID attribute
+            addModuleDoneButton.id = 'add_module_done';
+            addModuleDoneButton.value = "Add Module";
+            addModuleDoneButton.name = 'add_module_done';
+        }
+    });
+
+    document.getElementById("add_module_done").addEventListener('click', function () {
+        document.getElementById("dialog_module").style.display = "none";
+        getModuleDetails();
+    });
 });
 
-document.getElementById("add_module_done").addEventListener('click', function () {
-    document.getElementById("dialog_module").style.display = "none";
-    getModuleDetails();
-});
+function openEditModulePopup(moduleCode) {
+    // Fetch module details using moduleCode
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '../php/get_modules.php?module_code=' + moduleCode, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                var moduleDetails = JSON.parse(xhr.responseText);
+                populateModulePopup(moduleDetails);
+            } else {
+                console.error('Error fetching module details:', xhr.statusText);
+            }
+        }
+    };
+
+    xhr.send();
+}
+
+function populateModulePopup(moduleDetails) {
+    // Populate the dialog form with module details
+    var dialog = document.getElementById('dialog_module');
+    var moduleForm = document.getElementById('moduleForm');
+
+    // Show the dialog
+    dialog.style.display = "block";
+
+    // Set form fields with module details
+    moduleForm.elements['module_code'].value = moduleDetails[0].module_code;
+    moduleForm.elements['module_name'].value = moduleDetails[0].module_name;
+    // Update the ID, value, and name attributes of the submit button
+    var addModuleDoneButton = document.getElementById('add_module_done');
+    if (addModuleDoneButton) {
+        addModuleDoneButton.id = 'edit_module_done';
+        addModuleDoneButton.value = 'Edit Module';
+        addModuleDoneButton.name = 'edit_module_done';
+    }
+}

@@ -25,10 +25,19 @@ if (isset($_POST['login'])) {
 
             // Optionally, you may set session variables or perform other actions after a successful login.
             $_SESSION['user'] = $username;
+            $_SESSION['accountType'] = $userType;
 
             if ($remember) {
                 // Set a cookie or perform other actions for "Remember Me" functionality
                 setcookie("remember_me", $username, time() + (86400 * 30), "/");
+            }
+
+            if ($userType == 'admin'){
+                header("Location: ../Admin/adminBase.php");
+            } else if ($userType == 'student'){
+                header("Location: ../Student/index.php");
+            } else if ($userType == 'lecturer'){
+                header("Location: ../Lecturer/lecturerBase.php");
             }
         } else {
             // Incorrect password
@@ -42,4 +51,3 @@ if (isset($_POST['login'])) {
 
 // Close the connection
 $conn->close();
-?>
