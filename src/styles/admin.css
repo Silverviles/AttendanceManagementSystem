@@ -137,7 +137,7 @@ a {
     }
 }
 
-.admin_content {
+.admin_content ,.lecturer_content{
     display: block;
     float: right;
     width: calc(100vw - 1vw - var(--nav-width));

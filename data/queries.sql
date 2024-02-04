@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS users (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     first_name VARCHAR(100) NOT NULL,
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS module (
 );
 
 -- Insert dummy records into the module table
-INSERT INTO module (module_code, module_name, module_owner, faculty, degree) VALUES
+INSERT INTO module(module_code, module_name, module_owner, faculty, degree) VALUES
 ('M001', 'Introduction to Programming', 11, 'CS', 'D001'),
 ('M002', 'Database Management', 12, 'IT', 'D002'),
 ('M003', 'Digital Circuits', 13, 'EE', 'D003'),
@@ -185,7 +185,7 @@ CREATE PROCEDURE InsertUserAndLecturer(
     IN p_account_type ENUM('admin', 'lecturer', 'student'),
     IN p_lecturer_id CHAR(10),
     IN p_faculty CHAR(2)
-);
+)
 BEGIN
     -- Declare a variable to store the auto-incremented user_id
     DECLARE user_id INT;
@@ -267,12 +267,47 @@ END //
 DELIMITER ;
 
 CREATE TABLE IF NOT EXISTS classes (
-    duration VARCHAR(20) NOT NULL,
+    duration TIME NOT NULL,
     locations VARCHAR(20) NOT NULL,
-    module VARCHAR(8) NOT NULL UNIQUE,
-    lecturer VARCHAR(10) NOT NULL,
+    module CHAR(8) NOT NULL,
+    lecturer CHAR(10) NOT NULL,
     batch CHAR(8) NOT NULL,
     date DATETIME NOT NULL,
-    FOREIGN KEY (module) REFERENCES module(module_code) ON DELETE CASCADE,
-    FOREIGN KEY (lecturer) REFERENCES lecturer(lecturer_id) ON DELETE CASCADE
+    FOREIGN KEY (module) REFERENCES module(module_code),
+    FOREIGN KEY (lecturer) REFERENCES lecturer(lecturer_id)
 );
+
+INSERT INTO classes (duration, locations, module, lecturer, batch, date) 
+VALUES 
+(TIME('01:00:00'), 'Room A', 'M001', 'LEC123456', 'B2022A01', '2024-02-04 08:00:00'),
+(TIME('02:00:00'), 'Room B', 'M002', 'LEC234567', 'B2023B02', '2024-02-05 10:00:00');
+
+CREATE TABLE IF NOT EXISTS otp_table (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    duration VARCHAR(20) NOT NULL,
+    locations VARCHAR(20) NOT NULL,
+    module CHAR(8) NOT NULL,
+    lecturer CHAR(10) NOT NULL,
+    batch CHAR(8) NOT NULL,
+    date DATETIME NOT NULL,
+    otp INT NOT NULL,
+    expiration DATETIME NOT NULL
+);
+
+SET GLOBAL event_scheduler = ON;
+
+DELIMITER //
+CREATE PROCEDURE delete_expired_records()
+BEGIN
+    DELETE FROM otp_table WHERE expiration <= NOW();
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE EVENT delete_expired_records_event
+ON SCHEDULE EVERY 1 HOUR
+DO
+BEGIN
+    CALL delete_expired_records();
+END;
+DELIMITER ;

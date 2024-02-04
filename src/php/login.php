@@ -32,11 +32,14 @@ if (isset($_POST['login'])) {
                 setcookie("remember_me", $username, time() + (86400 * 30), "/");
             }
 
-            if ($userType == 'admin'){
+            if ($userType == 'admin') {
+                getCode('admin', $conn);
                 header("Location: ../Admin/adminBase.php");
-            } else if ($userType == 'student'){
+            } else if ($userType == 'student') {
+                getCode('student', $conn);
                 header("Location: ../Student/index.php");
-            } else if ($userType == 'lecturer'){
+            } else if ($userType == 'lecturer') {
+                getCode('lecturer', $conn);
                 header("Location: ../Lecturer/lecturerBase.php");
             }
         } else {
@@ -51,3 +54,27 @@ if (isset($_POST['login'])) {
 
 // Close the connection
 $conn->close();
+
+function getCode($table, $conn){
+    // Assuming $_SESSION['user'] is properly sanitized or validated
+    $username = $conn->real_escape_string($_SESSION['user']);
+    
+    // Concatenate the table name with "_id" to dynamically select the primary key column
+    $primaryKeyColumn = $table . "_id";
+    
+    // Prepare the SQL statement with a placeholder
+    $sql = "SELECT $primaryKeyColumn FROM $table WHERE username = ?";
+    
+    // Prepare and bind parameters
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $username);
+    
+    // Execute the query
+    $stmt->execute();
+    
+    // Get the result
+    $result = $stmt->get_result();
+    
+    // Return the result (or handle it as needed)
+    return $result;
+}

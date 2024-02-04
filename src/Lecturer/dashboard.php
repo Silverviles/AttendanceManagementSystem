@@ -2,13 +2,11 @@
     include_once '../php/config.php';
     include_once '../php/userData.php';
 ?>
-<div class="admin_content" id="admin_dashboard">
+<div class="lecturer_content" id="lecturer_dashboard">
     <div id="calendar_logo">
-        <div class="calendar" id="admin_calendar"></div>
-        
-        <!-- <div class="big_logo">
-            <img src="../images/logo.jpg" alt="logo">
-        </div> -->
+        <div class="today-classes">
+            <h1>Today's Classes</h1>
+            <div class="today_classes"></div>
+        </div>
     </div>
 </div>
-<?php $conn->close(); ?>

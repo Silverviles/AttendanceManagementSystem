@@ -88,6 +88,15 @@
     padding: 1%;
 }
 
+.today-classes {
+    width: 100%;
+    text-align: center;
+    font-family: "Google Sans", Roboto, Arial, sans-serif;
+    font-size: 120%;
+    font-weight: 500;
+    padding: 1%;
+}
+
 .details {
     width: 100%;
 }
