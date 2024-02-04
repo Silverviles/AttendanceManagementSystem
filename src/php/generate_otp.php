@@ -11,22 +11,35 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $batch = $_GET['batch'];
     $date = $_GET['date'];
 
-    // Extract the time from the date string
-    $start_time = new DateTime($date);
+    // Prepare the query to check if the OTP already exists
+    $query_check = "SELECT otp FROM otp_table WHERE duration = ? AND locations = ? AND module = ? AND lecturer = ? AND batch = ? AND date = ?";
+    $stmt_check = $conn->prepare($query_check);
+    $stmt_check->bind_param("ssssss", $duration, $locations, $module, $lecturer, $batch, $date);
+    $stmt_check->execute();
+    $result_check = $stmt_check->get_result();
 
-    list($hours, $minutes, $seconds) = explode(':', $duration);
+    if ($result_check->num_rows > 0) {
+        // If an OTP already exists for the provided data, return that OTP
+        $row = $result_check->fetch_assoc();
+        $otp = $row['otp'];
+    } else {
+        // Extract the time from the date string
+        $start_time = new DateTime($date);
 
-    $start_time->add(new DateInterval('PT'.$hours.'H'.$minutes.'M'.$seconds.'S'));
+        list($hours, $minutes, $seconds) = explode(':', $duration);
 
-    $expiration = $start_time->format('Y-m-d H:i:s');
+        $start_time->add(new DateInterval('PT' . $hours . 'H' . $minutes . 'M' . $seconds . 'S'));
 
-    // Generate a random OTP of 6 numbers
-    $otp = mt_rand(0000, 9999);
+        $expiration = $start_time->format('Y-m-d H:i:s');
 
-    // Prepare and execute the query to save OTP details to the table
-    $query = "INSERT INTO otp_table (duration, locations, module, lecturer, batch, date, otp, expiration) 
-              VALUES ('$duration', '$locations', '$module', '$lecturer', '$batch', '$date', '$otp', '$expiration')";
-    mysqli_query($conn, $query);
+        // If no OTP exists for the provided data, generate a new one
+        $otp = mt_rand(1000, 9999); // Generate a random 4-digit OTP
+        // Prepare and execute the query to save OTP details to the table
+        $query_insert = "INSERT INTO otp_table (duration, locations, module, lecturer, batch, date, otp, expiration) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt_insert = $conn->prepare($query_insert);
+        $stmt_insert->bind_param("ssssssis", $duration, $locations, $module, $lecturer, $batch, $date, $otp, $expiration);
+        $stmt_insert->execute();
+    }
 
     // Redirect to otp.php with OTP as a query parameter
     header("Location: ../Lecturer/otp.php?otp=$otp");

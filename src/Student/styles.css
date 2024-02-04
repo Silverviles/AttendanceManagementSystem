@@ -255,7 +255,6 @@ table thead tr {
     padding: 9px 0;
     cursor: pointer;
     border-radius: 20px;
-    pointer-events: none;
     background: #6e93f7;
     transition: all 0.2s ease;
   }
@@ -264,7 +263,7 @@ table thead tr {
     pointer-events: auto;
   }
   form button:hover {
-    background: #0e4bf1;
+    background: #032277;
   }
 
   /* Today Classes */

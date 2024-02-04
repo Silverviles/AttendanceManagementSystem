@@ -311,3 +311,13 @@ BEGIN
     CALL delete_expired_records();
 END;
 DELIMITER ;
+
+CREATE TABLE attendance (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    student_id CHAR(10) NOT NULL,
+    otp VARCHAR(4) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (student_id) REFERENCES student(student_id)
+);

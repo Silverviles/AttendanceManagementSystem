@@ -1,5 +1,6 @@
 <?php include_once '../Login/session_error.php'; ?>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,34 +8,35 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
     <div class="container">
         <nav>
             <ul>
                 <li><a href="#" class="logo">
-                    <img src="logo.png" >
-                    <span class="nav-item">Student</span>
-                </a></li>
+                        <img src="logo.png">
+                        <span class="nav-item">Student</span>
+                    </a></li>
                 <li><a href="#">
-                    <i class="fa-solid fa-house"></i>
-                    <span class="nav-item dashboard">Dashboard</span>
-                </a></li>
+                        <i class="fa-solid fa-house"></i>
+                        <span class="nav-item dashboard">Dashboard</span>
+                    </a></li>
                 <li><a href="st_attendance.php">
-                    <i class="fa-solid fa-chart-simple"></i>
-                    <span class="nav-item">Attendance</span>
-                </a></li>
+                        <i class="fa-solid fa-chart-simple"></i>
+                        <span class="nav-item">Attendance</span>
+                    </a></li>
                 <li><a href="st_attendance_history.php">
-                    <i class="fa-solid fa-database"></i>
-                    <span class="nav-item">Attendance History</span>
-                </a></li>
+                        <i class="fa-solid fa-database"></i>
+                        <span class="nav-item">Attendance History</span>
+                    </a></li>
                 <li><a href="st_absent_application.php">
-                    <i class="fa-solid fa-users-slash"></i>
-                    <span class="nav-item">Absent Application</span>
-                </a></li>
+                        <i class="fa-solid fa-users-slash"></i>
+                        <span class="nav-item">Absent Application</span>
+                    </a></li>
                 <li><a href="../Login/logout.php" class="logout">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <span class="nav-item">Log Out</span>
-                </a></li>
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="nav-item">Log Out</span>
+                    </a></li>
             </ul>
         </nav>
         <section class="main">
@@ -92,7 +94,7 @@
                             </tr>
                         </table>
                     </div>
-                    <button>View</button> 
+                    <button>View</button>
                 </div>
             </div>
             <div class="modules">
@@ -185,5 +187,38 @@
             </div>
         </section>
     </div>
+    <script>
+        window.onload = function () {
+            // Function to parse URL parameters
+            function getUrlParams() {
+                var params = {};
+                var queryString = window.location.search;
+                var urlParams = new URLSearchParams(queryString);
+                for (const [key, value] of urlParams) {
+                    params[key] = value;
+                }
+                return params;
+            }
+
+            // Get URL parameters
+            var params = getUrlParams();
+
+            // Check if the "success" parameter is set to 1
+            if (params.success === "1") {
+                // Alert success
+                alert("Success!");
+            } else if (params.success === '2') {
+                alert("Invalid OTP!");
+            } else if (params.success === '3') {
+                alert("Attendance already marked.");
+            } else if (params.success === '-1') {
+                alert("Error, Contact administration");
+            }
+
+            // Clear the "success" parameter from the URL
+            history.replaceState({}, document.title, window.location.pathname);
+        }
+    </script>
 </body>
+
 </html>
