@@ -60,7 +60,7 @@ function displayModuleDetails(modules) {
 }
 
 function confirmAndDeleteModule(moduleCode) {
-    if (confirm('Are you sure you want to delete?')) {
+    if (confirm('Are you sure you want to delete this module?')) {
         // Perform AJAX request to delete.php
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '../php/delete.php', true);

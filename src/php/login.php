@@ -35,7 +35,7 @@ if (isset($_POST['login'])) {
             }
 
             if ($userType == 'admin') {
-                $_SESSION['admin_id'] = getCode('admin', $conn);
+                $_SESSION['admin_id'] = $userID;
                 header("Location: ../Admin/adminBase.php");
             } else if ($userType == 'student') {
                 $_SESSION['student_id'] = getCode('student', $conn);

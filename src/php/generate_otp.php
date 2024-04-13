@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 
     // Redirect to otp.php with OTP as a query parameter
-    header("Location: ../Lecturer/otp.php?otp=$otp");
+    header("Location: ../Lecturer/lecturerBase.php?otp=$otp");
     exit();
 }
 

@@ -31,7 +31,8 @@ VALUES
 ('lecturer7', 'password12', 'Linda', 'Jones', 'linda.jones_lecturer@example.com', '2345678902', 'lecturer'),
 ('lecturer8', 'password13', 'Michael', 'Davis', 'michael.davis_lecturer@example.com', '3456789013', 'lecturer'),
 ('lecturer9', 'password14', 'Nancy', 'Brown', 'nancy.brown_lecturer@example.com', '4567890124', 'lecturer'),
-('lecturer10', 'password15', 'Oliver', 'Johnson', 'oliver.johnson_lecturer@example.com', '5678901235', 'lecturer');
+('lecturer10', 'password15', 'Oliver', 'Johnson', 'oliver.johnson_lecturer@example.com', '5678901235', 'lecturer'),
+('admin', 'admin', 'Oliver', 'Johnson', 'oliver.johnson_admin@example.com', '1111111111', 'admin');
 
 
 #Add foreign key later
@@ -55,7 +56,7 @@ CREATE TABLE IF NOT EXISTS lecturer (
     lecturer_id CHAR(10) NOT NULL UNIQUE,
     faculty CHAR(2) NOT NULL,
     CONSTRAINT fk_lecturer_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE, 
-    CONSTRAINT fk_lecturer_faculty FOREIGN KEY (faculty) REFERENCES faculty(faculty_id)
+    CONSTRAINT fk_lecturer_faculty FOREIGN KEY (faculty) REFERENCES faculty(faculty_id) ON DELETE CASCADE
 );
 
 INSERT INTO lecturer (user_id, lecturer_id, faculty)
@@ -98,7 +99,7 @@ CREATE TABLE IF NOT EXISTS student (
     batch CHAR(5) NOT NULL,
     CONSTRAINT fk_student_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     CONSTRAINT fk_student_faculty FOREIGN KEY (faculty) REFERENCES faculty(faculty_id) ON DELETE CASCADE,
-    CONSTRAINT fk_student_degree FOREIGN KEY (degree) REFERENCES degree(degree_id)
+    CONSTRAINT fk_student_degree FOREIGN KEY (degree) REFERENCES degree(degree_id) ON DELETE CASCADE
 );
 
 -- Add dummy records to student with corresponding user_id
@@ -273,8 +274,8 @@ CREATE TABLE IF NOT EXISTS classes (
     lecturer CHAR(10) NOT NULL,
     batch CHAR(8) NOT NULL,
     date DATETIME NOT NULL,
-    FOREIGN KEY (module) REFERENCES module(module_code),
-    FOREIGN KEY (lecturer) REFERENCES lecturer(lecturer_id)
+    FOREIGN KEY (module) REFERENCES module(module_code) ON DELETE CASCADE,
+    FOREIGN KEY (lecturer) REFERENCES lecturer(lecturer_id) ON DELETE CASCADE
 );
 
 INSERT INTO classes (duration, locations, module, lecturer, batch, date) 
@@ -291,7 +292,8 @@ CREATE TABLE IF NOT EXISTS otp_table (
     batch CHAR(8) NOT NULL,
     date DATETIME NOT NULL,
     otp INT NOT NULL,
-    expiration DATETIME NOT NULL
+    expiration DATETIME NOT NULL,
+    FOREIGN KEY (module) REFERENCES module(module_code) ON DELETE CASCADE
 );
 
 SET GLOBAL event_scheduler = ON;
@@ -312,12 +314,14 @@ BEGIN
 END;
 DELIMITER ;
 
-CREATE TABLE attendance (
+CREATE TABLE IF NOT EXISTS attendance (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     student_id CHAR(10) NOT NULL,
     otp VARCHAR(4) NOT NULL,
+    module_code CHAR(8),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (student_id) REFERENCES student(student_id)
-);
+    FOREIGN KEY (student_id) REFERENCES student(student_id) ON DELETE CASCADE,
+    FOREIGN KEY (module_code) REFERENCES module(module_code) ON DELETE CASCADE
+); 

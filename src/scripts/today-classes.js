@@ -87,6 +87,15 @@ function isToday(dateString) {
 document.addEventListener('DOMContentLoaded', function () {
     // Fetch classes data and populate the div when the page is loaded
     fetchClassesData(populateTodayClasses);
+
+    // Get the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    // Get the value of the 'otp' parameter
+    const otp = urlParams.get('otp');
+    // Display the OTP in an alert
+    alert(`OTP: ${otp}`);
+    // Clear the OTP parameter from the URL
+    history.replaceState(null, null, window.location.pathname);
 });
 
 // Add click event listener to the document and listen for clicks on elements with the class "attendance-btn"

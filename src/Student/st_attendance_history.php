@@ -23,10 +23,6 @@
                     <i class="fa-solid fa-chart-simple"></i>
                     <span class="nav-item">Attendance</span>
                 </a></li>
-                <li><a href="#">
-                    <i class="fa-solid fa-database"></i>
-                    <span class="nav-item">Attendance History</span>
-                </a></li>
                 <li><a href="st_absent_application.php">
                     <i class="fa-solid fa-users-slash"></i>
                     <span class="nav-item">Absent Application</span>

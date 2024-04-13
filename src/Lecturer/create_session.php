@@ -6,7 +6,6 @@
         <label for="duration">Duration (0:00 - 6:00):</label>
         <input type="time" id="duration" name="duration" min="00:00" max="06:00" value="01:00" required><br><br>
 
-
         <label for="locations">Locations:</label>
         <input type="text" id="locations" name="locations" required><br><br>
 
@@ -50,4 +49,45 @@
 
         <input type="submit" value="Submit">
     </form>
+    <style>
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="time"],
+        input[type="datetime-local"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </div>

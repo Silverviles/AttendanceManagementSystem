@@ -20,6 +20,7 @@
         <?php include_once './navBar.php'; ?>
         <?php include_once './dashboard.php'; ?>
         <?php include_once './create_session.php'; ?>
+        <?php include_once './lecturer_attendance_history.php'; ?>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>

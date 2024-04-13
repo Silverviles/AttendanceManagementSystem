@@ -35,10 +35,18 @@ if (checkOTP($combinedNumber, $conn)) {
         echo "Record already exists";
         header("Location: ../Student/index.php?success=3");
     } else {
+        $query = "SELECT module FROM otp_table WHERE otp = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('i', $combinedNumber); // assuming $combinedNumber is an integer
+        $stmt->execute();
+        $stmt->bind_result($module_code);
+        $stmt->fetch();
+        $stmt->close();
+
         // Prepare SQL statement to insert data into the attendance table
-        $sql_insert = "INSERT INTO attendance (user_id, student_id, otp) VALUES (?, ?, ?)";
+        $sql_insert = "INSERT INTO attendance (user_id, student_id, otp, module_code) VALUES (?, ?, ?, ?)";
         $stmt_insert = $conn->prepare($sql_insert);
-        $stmt_insert->bind_param("ssi", $userID, $studentID, $combinedNumber);
+        $stmt_insert->bind_param("ssis", $userID, $studentID, $combinedNumber, $module_code);
 
         // Execute the SQL statement
         if ($stmt_insert->execute() === TRUE) {
